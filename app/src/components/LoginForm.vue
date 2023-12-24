@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-// import {Message} from '@arco-design/web-vue'
-// import {useUserStore} from '~/store'
+import { Message } from '@arco-design/web-vue';
+import { useUserStore } from '~/store';
 
-// const userStore = useUserStore()
+const userStore = useUserStore()
 // const router = useRouter()
 
 const userInfo = ref({
   username: 'admin',
-  password: 'admin',
+  password: '123456',
 })
 const loading = ref(false)
 const loginFormRef = ref()
@@ -18,8 +18,8 @@ async function handleSubmit() {
   //   return
   // }
   // loading.value = false
-  // const res = await userStore.login(userInfo.value)
-  // Message.success('登录成功')
+  const res = await userStore.login(userInfo.value)
+  Message.success('登录成功')
   // router.push('/order')
 }
 </script>
