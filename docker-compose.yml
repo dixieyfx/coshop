@@ -18,7 +18,7 @@ services:
       - ./server:/app
     ports:
       - "5005:5000"
-    command: sh -c "mvn clean install && java -jar target/backend-0.0.1-SNAPSHOT.jar"
+    command: java -jar coshop-core.jar
 
   db:
     image: mysql:5.7
