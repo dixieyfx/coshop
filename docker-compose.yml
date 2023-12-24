@@ -1,34 +1,51 @@
 version: '3.8'
+
 services:
+  # 前端服务
   frontend:
+    user: root
     image: node:18
-    working_dir: /frontend
+    working_dir: /myapp
     volumes:
-      - ./app:/frontend
+      - ./app:/myapp
     ports:
       - "3003:3000"
     command: sh -c "npm install && npm run dev"
     depends_on:
       - backend
+    networks:
+      - app-network
 
+  # 后端服务
   backend:
     image: openjdk:8-jdk
-    working_dir: /app
+    working_dir: /backend
     volumes:
-      - ./server:/app
+      - ./server:/backend
     ports:
       - "5005:5000"
     command: java -jar coshop-core.jar
+    networks:
+      - app-network
 
+  # 数据库服务
   db:
     image: mysql:5.7
     ports:
       - "3306:3306"
-    # environment:
-    #   MYSQL_ROOT_PASSWORD: mypassword
-    #   MYSQL_DATABASE: mydatabase
-    #   MYSQL_USER: user
-    #   MYSQL_PASSWORD: userpassword
-    # volumes:
-    #   - db-data:/var/lib/mysql
-    # restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mypassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+
+volumes:
+  db-data:
