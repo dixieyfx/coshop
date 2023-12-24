@@ -73,6 +73,18 @@ export default defineConfig({
     UnoCSS(),
 
   ],
+  server: {
+    // 项目本地运行端口号
+    port: 3013,
+    open: true,
+    cors: true,
+    proxy: {
+      '/api': {
+        target: 'http://hazel.hazellin.cafe:5005',
+        changeOrigin: true,
+      },
+    },
+  },
   ssgOptions: {
     script: 'async',
     formatting: 'minify',
@@ -87,16 +99,5 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
   },
-  server: {
-    // 项目本地运行端口号
-    port: 3003,
-    open: true,
-    cors: true,
-    proxy: {
-      '/api': {
-        target: 'http://hazel.hazellin.cafe:3000',
-        changeOrigin: true,
-      },
-    },
-  },
+ 
 })
