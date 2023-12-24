@@ -1,22 +1,22 @@
 import type { AxiosInstance, AxiosRequestConfig } from 'axios'
 import axios, { AxiosResponse } from 'axios'
 import ResponseHelper from './responseHelp'
-
 export default class Request {
   private axiosInstance: AxiosInstance
   constructor(options: AxiosRequestConfig) {
     this.axiosInstance = axios.create(options)
 
     this.axiosInstance.interceptors.request.use(
-      (config: AxiosRequestConfig) => {
+      (config: any) => {
         // 在发送请求之前做些什么 请求发送前带上token
         const token = localStorage.getItem('token')
         if (token)
-          config?.headers?.Authorization = token
+          config.headers.Authorization = token
 
         return config
       },
-      (error) => {
+      (error: any) => {
+        console.log(error)
         return Promise.reject(error)
       },
     )
@@ -31,6 +31,7 @@ export default class Request {
           return response.data
       },
       (error: any) => {
+        console.log(error)
         return Promise.reject(error)
       },
     )
@@ -49,6 +50,7 @@ export default class Request {
   }
 
   get<T = any>(url: string, data?: any): Promise<T> {
+    console.log(data, url)
     return this.Request({ url, method: 'get', params: data || {} })
   }
 
