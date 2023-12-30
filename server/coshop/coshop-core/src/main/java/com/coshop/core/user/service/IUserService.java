@@ -2,8 +2,6 @@ package com.coshop.core.user.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.coshop.api.vo.LoginResponseDTO;
-import com.coshop.api.vo.UserAddressRequestDTO;
-import com.coshop.api.vo.UserAddressResponseDTO;
 import com.coshop.core.user.pojo.User;
 
 /**

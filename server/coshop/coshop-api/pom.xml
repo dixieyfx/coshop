@@ -11,18 +11,19 @@
 
     <artifactId>coshop-api</artifactId>
 
+    <properties>
+        <docker.image.prefix>5.8.16</docker.image.prefix>
+        <project.artifactId>coshop-api</project.artifactId>
+        <project.build.finalName>coshop-api</project.build.finalName>
+        <project.build.directory>/app</project.build.directory>
+    </properties>
+
+    <!--工具包无需启动，打包跳过main方法检测-->
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
