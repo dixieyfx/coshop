@@ -1,45 +1,25 @@
 version: '3.8'
 
 services:
-  # frontend:
-  #   build: 
-  #     context: ./app
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3003:80"  # 假设前端在容器的 80 端口运行
-  #   networks:
-  #     - app-network
-
   coshop-gateway:
     build:
-      context: ./server/coshop-gateway
+      context: ./server/coshop
       dockerfile: Dockerfile
     ports:
-      - "9527:9527"
-    networks:
-      - app-network
+      - "8080:8080" # 按需调整端口映射
+    depends_on:
+      - coshop-api
 
-  # coshop-core:
-  #   build:
-  #     context: ./server/coshop-core
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "8080:8080"
-  #   networks:
-  #     - app-network
+  coshop-core:
+    build:
+      context: ./server/coshop
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081" # 按需调整端口映射
+    depends_on:
+      - coshop-api
 
-networks:
-  app-network:
-
-# db:
-# image: mysql:5.7
-# restart: always
-# ports:
-#   - "3306:3306"
-# environment:
-#   MYSQL_ROOT_PASSWORD: 123456
-#   MYSQL_DATABASE: coshop
-#   MYSQL_USER: coshop
-#   MYSQL_PASSWORD: 123456
-# volumes:
-#   - ./db:/var/lib/mysql
+  coshop-api:
+    build:
+      context: ./server/coshop
+      dockerfile: Dockerfile
