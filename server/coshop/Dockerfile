@@ -7,6 +7,12 @@ RUN apt-get update && apt-get install -y maven
 # 设置工作目录
 WORKDIR /coshop
 
+# 首先构建最外层 coshop
+# 复制 coshop-api 项目文件
+COPY coshop/pom.xml coshop/pom.xml
+# 构建 coshop-api
+RUN cd coshop && mvn install -DskipTests
+
 # 首先构建 coshop-api
 # 复制 coshop-api 项目文件
 COPY coshop-api/pom.xml coshop-api/pom.xml
