@@ -1,6 +1,13 @@
 version: '3.8'
 
 services:
+  frontend:
+    build: 
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - "3003:80"  # 假设前端在容器的 80 端口运行
+
   coshop-gateway:
     build:
       context: ./server/coshop
